@@ -11,7 +11,7 @@ export default async function UserSignpForm() {
     console.log("Data is", data);
 
     await db.query(
-      `INSERT INTO userprofiles(username, bio, img_url, clerk_id) VALUES ($1, £2, £3, $4)`,
+      `INSERT INTO userprofiles(username, bio, img_url, clerk_id) VALUES ($1, $2, $3, $4)`,
       [data.username, data.bio, data.img_url, userId]
     );
   }

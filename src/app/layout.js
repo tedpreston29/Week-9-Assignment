@@ -8,6 +8,7 @@ import {
   SignedOut,
   UserButton,
 } from "@clerk/nextjs";
+import Link from "next/link";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -44,6 +45,7 @@ export default function RootLayout({ children }) {
                 </SignUpButton>
               </SignedOut>
               <SignedIn>
+                <Link href={"/users"}>Profile</Link>
                 <UserButton />
               </SignedIn>
             </div>

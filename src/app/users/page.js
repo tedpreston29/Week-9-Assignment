@@ -1,18 +1,19 @@
-import UserSignpForm from "@/components/UserSignUpForm";
+import UserSigupForm from "@/components/UserSignUpForm";
 import { db } from "@/utils/connect";
 import { auth } from "@clerk/nextjs/server";
 import Link from "next/link";
 
-export default async function UserPage({ params }) {
-  const { id } = await params;
+export default async function UserPage() {
   const { isAuthenticated, redirectToSignIn, userId } = await auth();
+
+  console.log("userID", userId);
 
   if (!isAuthenticated) {
     redirectToSignIn();
   }
 
   const res = await db.query(`SELECT * FROM userprofiles WHERE clerk_id = $1`, [
-    id,
+    userId,
   ]);
 
   const userInfo = res.rows[0];
@@ -23,14 +24,16 @@ export default async function UserPage({ params }) {
   if (notInDb) {
     return (
       <div>
-        <UserSignpForm />
+        <UserSigupForm />
       </div>
     );
   }
 
   return (
     <div>
-      <h1>Hey!</h1>
+      <img src={userInfo.img_url} alt="Users Profile Picture"></img>
+      <h1>{userInfo.username}'s Profile</h1>
+      <p>{userInfo.bio}</p>
     </div>
   );
 }
