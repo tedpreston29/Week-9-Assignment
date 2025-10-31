@@ -1,7 +1,7 @@
-import UserSigupForm from "@/components/UserSignUpForm";
 import { db } from "@/utils/connect";
 import { auth } from "@clerk/nextjs/server";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
 export default async function UserPage() {
   const { isAuthenticated, redirectToSignIn, userId } = await auth();
@@ -21,19 +21,16 @@ export default async function UserPage() {
 
   const notInDb = userInfo === undefined;
 
-  if (notInDb) {
-    return (
-      <div>
-        <UserSigupForm />
-      </div>
-    );
-  }
+  if (notInDb) redirect("/create-profile");
 
   return (
     <div>
-      <img src={userInfo.img_url} alt="Users Profile Picture"></img>
-      <h1>{userInfo.username}'s Profile</h1>
-      <p>{userInfo.bio}</p>
+      <div>
+        <img src={userInfo.img_url} alt="Users Profile Picture"></img>
+        <h1>{userInfo.username}'s Profile</h1>
+        <p>{userInfo.bio}</p>
+      </div>
+      <Link href={"/profile/edit-profile"}>Edit Profile</Link>
     </div>
   );
 }

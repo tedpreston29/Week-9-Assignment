@@ -1,7 +1,7 @@
 import { db } from "@/utils/connect";
 import { auth } from "@clerk/nextjs/server";
 
-export default async function UserSignpForm() {
+export default async function UserSignUpForm() {
   const { userId } = await auth();
 
   async function handleSubmit(formData) {
@@ -18,8 +18,9 @@ export default async function UserSignpForm() {
 
   return (
     <form action={handleSubmit}>
-      <input name="username" placeholder="Enter Username" />
-      <input name="bio" placeholder="Enter your Bio" />
+      <input name="username" placeholder="Enter Username" required />
+      <input name="bio" placeholder="Enter your Bio" required />
+      <input name="img_url" placeholder="Add a Profile Picture" />
       <button type="submit">Submit</button>
     </form>
   );

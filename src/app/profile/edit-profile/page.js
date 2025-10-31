@@ -1,5 +1,5 @@
 import { db } from "@/utils/connect";
-import { auth } from "@clerk/nextjs/dist/types/server";
+import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 
 export default async function EditUser() {
@@ -20,14 +20,16 @@ export default async function EditUser() {
     const bio = formData.get("bio");
     const img_url = formData.get("img_url");
 
-    await db.query(`UPDATE userprofiles
+    await db.query(
+      `UPDATE userprofiles
         SET username = $1,
         bio = $2,
         img_url = $3
-        WHERE clerk_id = $4`),
-      [username, bio, img_url, userId];
+        WHERE clerk_id = $4`,
+      [username, bio, img_url, userId]
+    );
 
-    redirect(`/users`);
+    redirect(`/profile`);
   }
 
   return (
@@ -42,6 +44,7 @@ export default async function EditUser() {
           />
           <input name="bio" placeholder="Update Bio" defaultValue={user.bio} />
           <input name="img_url" placeholder="Update Profile Image" />
+          <button type="submit">Confirm Changes</button>
         </form>
       </div>
     </div>

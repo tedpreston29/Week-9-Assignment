@@ -45,7 +45,7 @@ export default function RootLayout({ children }) {
                 </SignUpButton>
               </SignedOut>
               <SignedIn>
-                <Link href={"/users"}>Profile</Link>
+                <Link href={"/profile"}>Profile</Link>
                 <UserButton />
               </SignedIn>
             </div>
