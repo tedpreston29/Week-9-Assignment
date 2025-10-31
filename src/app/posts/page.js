@@ -29,9 +29,9 @@ export default async function Home({ searchParams }) {
           Most Recent
         </Link>
       </div>
-      <div className="m-6 max-w-52">
+      <div className="m-6 max-w-60">
         {posts.map((post) => (
-          <div className="flex flex-row" key={post.id}>
+          <div className="mb-6" key={post.id}>
             <Link href={`posts/posts.id`}>
               <h2>
                 {post.title} | {post.created_at.toLocaleDateString("en-gb")}
@@ -39,7 +39,6 @@ export default async function Home({ searchParams }) {
 
               <img src={post.img_url} />
               <p>{post.username}</p>
-              <p>{post.content}</p>
             </Link>
           </div>
         ))}
