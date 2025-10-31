@@ -9,6 +9,7 @@ import {
   UserButton,
 } from "@clerk/nextjs";
 import Link from "next/link";
+import { ActiveLink } from "@/components/ActiveLink";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -34,7 +35,7 @@ export default function RootLayout({ children }) {
         >
           {/* Add a Radix or Mui component library for this page? */}
           <header className="flex justify-between items-center p-4 gap-4 h-16 bg-neutral-900">
-            <h1>FaceBook</h1>
+            <Link href={"/"}>FaceBook</Link>
             <div className="flex items-center gap-4">
               <SignedOut>
                 <SignInButton />
@@ -45,8 +46,8 @@ export default function RootLayout({ children }) {
                 </SignUpButton>
               </SignedOut>
               <SignedIn>
-                <Link href={"/posts"}>Posts</Link>
-                <Link href={"/profile"}>Profile</Link>
+                <ActiveLink href={"/posts"}>Posts</ActiveLink>
+                <ActiveLink href={"/profile"}>Profile</ActiveLink>
 
                 <UserButton />
               </SignedIn>

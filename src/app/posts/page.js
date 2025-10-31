@@ -23,21 +23,24 @@ export default async function Home({ searchParams }) {
       </div>
       <div className="flex justify-end gap-4 pr-5 underline">
         <Link className="text-red-700" href="/posts?sort=asc">
-          Sort Ascending
+          Oldest
         </Link>
         <Link className="text-cyan-300" href="/posts?sort=desc">
-          Sort Descending
+          Most Recent
         </Link>
       </div>
-      <div>
+      <div className="m-6 max-w-52">
         {posts.map((post) => (
-          <div key={post.id}>
-            <h2>
-              {post.title} | {post.created_at.toLocaleDateString("en-gb")}
-            </h2>
-            <img src={post.img_url} />
-            <p>{post.username}</p>
-            <p>{post.content}</p>
+          <div className="flex flex-row" key={post.id}>
+            <Link href={`posts/posts.id`}>
+              <h2>
+                {post.title} | {post.created_at.toLocaleDateString("en-gb")}
+              </h2>
+
+              <img src={post.img_url} />
+              <p>{post.username}</p>
+              <p>{post.content}</p>
+            </Link>
           </div>
         ))}
       </div>

@@ -24,9 +24,13 @@ export default async function UserPage() {
   if (notInDb) redirect("/create-profile");
 
   return (
-    <div>
+    <div className="m-10">
       <div>
-        <img src={userInfo.img_url} alt="Users Profile Picture"></img>
+        <img
+          className="w-36"
+          src={userInfo.img_url}
+          alt="Users Profile Picture"
+        ></img>
         <h1>{userInfo.username}'s Profile</h1>
         <p>{userInfo.bio}</p>
       </div>
