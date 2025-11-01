@@ -1,10 +1,13 @@
 import { db } from "@/utils/connect";
 
 export default async function IndivPost({ params }) {
-  const { id } = await params;
+  const resolvedParams = await params;
+  const { id } = resolvedParams;
+  console.log("id:", id);
 
   const postResult = await db.query(
-    `SELECT posts.*, userprofiles.id, userprofiles.username FROM posts JOIN userprofiles ON posts.user_id = userprofiles.id`
+    `SELECT posts.*, userprofiles.id, userprofiles.username FROM posts JOIN userprofiles ON posts.user_id = userprofiles.id WHERE posts.id = $1`,
+    [id]
   );
 
   const posts = postResult.rows[0];
@@ -36,7 +39,7 @@ export default async function IndivPost({ params }) {
       </div>
       <div>
         {comments.map((comment) => (
-          <div className="pb-3" key={comment.id}>
+          <div className="pb-3" key={comments.id}>
             <p>{comment.username}:</p>
             <p>
               {comment.comment} |{" "}

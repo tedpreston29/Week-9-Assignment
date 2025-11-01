@@ -32,7 +32,7 @@ export default async function Home({ searchParams }) {
       <div className="m-6 max-w-60">
         {posts.map((post) => (
           <div className="mb-6" key={post.id}>
-            <Link href={`posts/posts.id`}>
+            <Link href={`posts/${post.id}`}>
               <h2>
                 {post.title} | {post.created_at.toLocaleDateString("en-gb")}
               </h2>
