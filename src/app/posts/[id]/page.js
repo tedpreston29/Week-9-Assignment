@@ -17,7 +17,7 @@ export default async function IndivPost({ params }) {
   }
 
   const commentsResult = await db.query(
-    `SELECT comments.comment, comments.created_at, userprofiles.username
+    `SELECT comments.id, comments.comment, comments.created_at, userprofiles.username
     FROM comments
     JOIN userprofiles ON comments.user_id = userprofiles.id
     WHERE comments.post_id = $1`,
@@ -39,7 +39,7 @@ export default async function IndivPost({ params }) {
       </div>
       <div>
         {comments.map((comment) => (
-          <div className="pb-3" key={comments.id}>
+          <div className="pb-3" key={comment.id}>
             <p>{comment.username}:</p>
             <p>
               {comment.comment} |{" "}
