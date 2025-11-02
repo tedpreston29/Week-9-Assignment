@@ -1,8 +1,11 @@
-import Image from "next/image";
 import { db } from "@/utils/connect";
 import Link from "next/link";
+import CreatePostModal from "@/components/create-post";
+import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
+import { auth } from "@clerk/nextjs/server";
 
-export default async function Home({ searchParams }) {
+export default async function Posts({ searchParams }) {
   const resolvedParams = await searchParams;
   const sortParam = resolvedParams?.sort;
 
@@ -16,6 +19,28 @@ export default async function Home({ searchParams }) {
   const posts = results.rows;
   console.log("results", posts);
 
+  async function handleCreatePost(formData) {
+    "use server";
+
+    const { title, content, img_url } = Object.fromEntries(formData);
+
+    const { userId } = await auth();
+
+    const sqlId = (
+      await db.query(`SELECT ID FROM userprofiles WHERE clerk_id = $1`, [
+        userId,
+      ])
+    ).rows[0].id;
+
+    await db.query(
+      `INSERT INTO posts (user_id, title, content, img_url) VALUES ($1, $2, $3, $4)`,
+      [sqlId, title, content, img_url]
+    );
+
+    revalidatePath("/posts");
+    redirect("/posts");
+  }
+
   return (
     <div>
       <div>
@@ -28,6 +53,9 @@ export default async function Home({ searchParams }) {
         <Link className="text-cyan-300" href="/posts?sort=desc">
           Most Recent
         </Link>
+      </div>
+      <div className="m-6">
+        <CreatePostModal action={handleCreatePost} />
       </div>
       <div className="m-6 max-w-60">
         {posts.map((post) => (

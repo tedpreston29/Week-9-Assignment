@@ -4,6 +4,8 @@ import { auth } from "@clerk/nextjs/server";
 export default async function UserSignUpForm() {
   const { userId } = await auth();
 
+  console.log("user id:", userId);
+
   async function handleSubmit(formData) {
     "use server";
 
