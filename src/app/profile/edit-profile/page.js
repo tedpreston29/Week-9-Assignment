@@ -34,7 +34,7 @@ export default async function EditUser() {
 
   return (
     <div>
-      <h2>Edit Your Profile Details</h2>
+      <h2>Edit Profile Page</h2>
       <div>
         <form action={handleEditUser}>
           <input
@@ -43,8 +43,14 @@ export default async function EditUser() {
             defaultValue={user.username}
           />
           <input name="bio" placeholder="Update Bio" defaultValue={user.bio} />
-          <input name="img_url" placeholder="Update Profile Image" />
-          <button type="submit">Confirm Changes</button>
+          <input
+            name="img_url"
+            placeholder="Update Profile Image"
+            defaultValue={user.img_url}
+          />
+          <button className="ml-8" type="submit">
+            Confirm Changes
+          </button>
         </form>
       </div>
     </div>

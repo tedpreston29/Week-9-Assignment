@@ -6,7 +6,12 @@ export default function CreatePostModal({ action }) {
 
   return (
     <div>
-      <button onClick={() => setShow(true)}>Create New Post</button>
+      <button
+        className="bg-[#c01378] text-white rounded-full font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 cursor-pointer "
+        onClick={() => setShow(true)}
+      >
+        Create New Post
+      </button>
 
       {show && (
         <div>

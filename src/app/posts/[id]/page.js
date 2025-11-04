@@ -1,4 +1,5 @@
 import { db } from "@/utils/connect";
+import NotFound from "@/components/not-found";
 
 export default async function IndivPost({ params }) {
   const resolvedParams = await params;
@@ -12,8 +13,10 @@ export default async function IndivPost({ params }) {
 
   const posts = postResult.rows[0];
 
+  console.log("posts", posts);
+
   if (!posts) {
-    return <p>Post Not Found</p>;
+    return <NotFound />;
   }
 
   const commentsResult = await db.query(
@@ -28,22 +31,29 @@ export default async function IndivPost({ params }) {
   console.log("comments", comments);
 
   return (
-    <div className="m-5">
-      <div className="pb-10" key={posts.id}>
+    <div className="flex gap-1 m-5 justify-center">
+      <div
+        className="flex flex-col max-w-max bg-gray-800 border border-gray-700 rounded-xl shadow-md p-4 mb-6  hover:shadow-lg transition"
+        key={posts.id}
+      >
         <h2>
           {posts.title} | {posts.created_at.toLocaleDateString("en-gb")}
         </h2>
-        <img src={posts.img_url} />
+        <img className="w-[650px] h-[700px]" src={posts.img_url} />
         <p>{posts.username}</p>
         <p>{posts.content}</p>
       </div>
-      <div>
+      <div className="bg-gray-800 border border-gray-700 rounded-xl shadow-md p-4 mb-6  hover:shadow-lg transition">
+        <h2 className="underline pb-3 text-[25px]">Comments</h2>
         {comments.map((comment) => (
           <div className="pb-3" key={comment.id}>
             <p>{comment.username}:</p>
             <p>
               {comment.comment} |{" "}
               {comment.created_at.toLocaleDateString("en-gb")}
+            </p>
+            <p>
+              -----------------------------------------------------------------------
             </p>
           </div>
         ))}

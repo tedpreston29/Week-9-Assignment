@@ -35,7 +35,7 @@ export default function RootLayout({ children }) {
         >
           {/* Add a Radix or Mui component library for this page? */}
           <header className="flex justify-between items-center p-4 gap-4 h-16 bg-neutral-900">
-            <Link href={"/"}>FaceBook</Link>
+            <Link href={"/"}>HullBook</Link>
             <div className="flex items-center gap-4">
               <SignedOut>
                 <SignInButton />
